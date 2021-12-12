@@ -3,15 +3,44 @@ Daikin-Control
 
 ![Web Gui Preview](https://raw.githubusercontent.com/ael-code/daikin-control/master/web_gui.png)
 
-The '''Daikin Emura FTXG-L''' air conditioner comes with a wifi module preinstalled that allows you to control it via internet.
-The solution provided by Daikin is a mobile app (very well designed) that allows you to control the air conditioner even remotely, exploiting the REST API of the wifi module.
+The '''Daikin Emura FTXG-L''' air conditioner comes with a wifi module preinstalled that allows you to control it via internet. Other Daikin airconditioners can be upgraded with a wifi module WDA00001.
+The solution provided by Daikin is a mobile app (very well designed) that allows you to control the air conditioner(s) even remotely, exploiting the REST API of the wifi module.
 
-Even if the system works, there are some problems:
+Even if though this system works well, there are some problems:
 
-- It is no possible to control the AC from a web browser. You must use the official mobile application. If your device is not supported or you are from a computer you can not control your air conditioner over the internet.
+- It is no possible to control the AC from a web browser. You must use the official mobile application. If your device is not supported or you are working from a computer you cannot control your air conditioner via your PC.
 - To control your AC remotely from outside your lan, your requests must go through the Daikin server. The device response is slow because the system is based on polling request. (you can't set the ip of the AC on the mobile application)
+- When you have multiple units that you want to control the official app is very slow.
 - Even if the remote management system involves the use of an account with password, there is a big security issue, password and username can be accessed from inside your LAN with a GET request. (try basic_info request)
 
+To configure your unit in the web UI:
+Open the file: index.html
+edit the following section with the IP address(es) and names of your unit(s):
+<body>
+	<!--#######################################################################################################################>
+	<!--CONFIGURATION SECTION                                                                                                                                                                                               >
+	<!--Configure the IP address(es) of your Daikin wifi controler(s) here. Max 3 units. If only 1 unit, configure only the first item for IP-address and Name       >
+	<!--                                                                                                                                                                                                                                            -->
+	<div class="unit-ips">
+	<div class="unit-ip" id="unit-ip-1" data-unit-ip="192.168.178.17"> </div>
+	<div class="unit-ip" id="unit-ip-2" data-unit-ip="192.168.178.18"> </div> <!--When set to "nnn.nnn.nnn.nnn" only the first item is used-->
+	<div class="unit-ip" id="unit-ip-3" data-unit-ip="192.168.178.19"> </div>
+	</div>
+	<div class="unit-names">
+	<div class="unit-name" id="unit-name-1" data-unit-name="Kantoor"> </div>
+	<div class="unit-name" id="unit-name-2" data-unit-name="Praktijk"> </div>
+	<div class="unit-name" id="unit-name-3" data-unit-name="Slaapkamer"> </div>
+	</div>
+	<!--																																																											   >
+	<#######################################################################################################################-->
+When you have a single unit, only configure the IP address and name of the first unit. Set the IP addresses of the other 2 units to "nnn.nnn.nnn.nnn"  and the names to " Undefined" this will prevent the selection buttons on the top of the screen not to appear.
+
+If you also want the web UI to be used as an app on your iPhone, do the following:
+Make sure that the file  apple-touch-icon.png is pressent in the media directory. (i.e.in web/DaikinControl/media/apple-touch-icon.png)
+Open the webUI from Safari on your iPhone.
+from the menu options select "add to home screen" 
+An icon should appear with the Daikin logo contained in apple-touch-icon.png on your home screen. 
+Now you can open the web UI as an app from your iPhone.
 
 This project aims to provide 2 main things:
 
@@ -25,10 +54,16 @@ The API described by this document have been tested and seems to be working with
 
 The following hardware configurations have been used for testing:
 
+...
+ModelName:          Daikin Perfera FTXM20M
+ModelID:                FTXM20M2JV1B
+WifiControllerID:    BRP069B41 3P472899-1
+Software version:   2.5.1
+```
 ```
 ModelName:          Daikin Emura FTXG-L
-ModelID:            FTXG35LV1BW
-WifiControllerID:   BRP069A41 4P358711-2C
+ModelID:                FTXG35LV1BW
+WifiControllerID:    BRP069A41 4P358711-2C
 Software version:   1.4.3
 ```
 ```
@@ -36,12 +71,6 @@ ModelName:          Daikin Emura FVXS-F
 ModelID:            FVXS35FV1B
 WifiControllerID:   BRP069A42
 Software version:   2.6.0
-```
-```
-ModelName:          Daikin Caldo XRH30
-ModelID:            FTXTM302V1B
-WifiControllerID:   BRP069B41
-Software version:   1.2.51
 ```
 
 If you try new hardware configurations or new firmware versions, please contact me.
