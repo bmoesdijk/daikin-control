@@ -1,0 +1,8 @@
+title: Daikin-control
+description: "Unofficial api documentation and web interface to control \"Daikin Emura FTXG-L\" air conditioner  "
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-merlot
+
+gems:
+  - jekyll-mentions
